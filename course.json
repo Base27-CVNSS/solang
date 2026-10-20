@@ -1,0 +1,450 @@
+{
+  "modules": [
+    [
+      "zero",
+      "00",
+      "Nền tảng từ số 0",
+      "🌱",
+      "Khởi động",
+      "Nắm Web3, ví, JS/TS, Git và tư duy bảo mật"
+    ],
+    [
+      "solidity",
+      "01",
+      "Solidity căn bản",
+      "🧩",
+      "Cơ bản",
+      "Học ngữ pháp, hàm, state, types, quyền và test"
+    ],
+    [
+      "svm",
+      "02",
+      "Từ EVM sang SVM",
+      "🔄",
+      "Chuyển đổi",
+      "Account-centric, signer, annotation, PDA và CPI"
+    ],
+    [
+      "toolchain",
+      "03",
+      "Pipeline Solang",
+      "⚙️",
+      "Trung cấp",
+      "Compiler SBF, IDL, local validator, deploy và logs"
+    ],
+    [
+      "client",
+      "04",
+      "Client và Fullstack",
+      "💻",
+      "Nâng cao",
+      "TypeScript, Borsh, AccountMeta, SPL, RPC và dApp"
+    ],
+    [
+      "expert",
+      "05",
+      "Bảo mật và chuyên gia",
+      "🛡️",
+      "Chuyên gia",
+      "Kiểm thử, tối ưu CU, upgrade và GeoPIN capstone"
+    ]
+  ],
+  "lessons": [
+    {
+      "id": "00.01",
+      "group": "zero",
+      "title": "Web2, Web3 và dApp",
+      "theory": "Blockchain là một máy trạng thái phi tập trung. DApp gồm frontend, ví, RPC, logic on-chain và dữ liệu off-chain. Đừng đồng nhất blockchain với website.",
+      "evm": "EVM và Solana đều có on-chain program nhưng kiến trúc dữ liệu khác.",
+      "task": "Vẽ luồng người dùng ký giao dịch rồi đọc kết quả trên explorer.",
+      "q": "DApp có bắt buộc chứa tất cả dữ liệu trên chain?",
+      "a": "Không, dữ liệu lớn và riêng tư thường đặt ngoài chain.",
+      "code": ""
+    },
+    {
+      "id": "00.02",
+      "group": "zero",
+      "title": "Block, giao dịch, xác nhận",
+      "theory": "Gửi transaction tới RPC không chứng minh nó đã thực thi thành công. Cần kiểm tra confirmation, err, logs và trạng thái sau khi chạy.",
+      "evm": "Không áp máy móc số block confirmations Ethereum cho Solana.",
+      "task": "Tra một transaction Devnet, ghi signature, slot và lỗi nếu có.",
+      "q": "RPC trả signature nghĩa là giao dịch thành công?",
+      "a": "Không, còn phải xác minh tình trạng xử lý.",
+      "code": ""
+    },
+    {
+      "id": "00.03",
+      "group": "zero",
+      "title": "Ví, public key và chữ ký số",
+      "theory": "Private key tạo chữ ký, public key định danh tài khoản. Transaction có thể yêu cầu nhiều signer. Không đưa khóa ví vào Git hay trình duyệt lạ.",
+      "evm": "Địa chỉ Ethereum thông thường 20 byte, Solana public key 32 byte.",
+      "task": "Tạo ví test, ghi pubkey và lập quy trình giữ seed/private key an toàn.",
+      "q": "isSigner=true tự tạo ra chữ ký?",
+      "a": "Không, phải có chữ ký hợp lệ hoặc PDA signing phù hợp.",
+      "code": ""
+    },
+    {
+      "id": "00.04",
+      "group": "zero",
+      "title": "JavaScript và TypeScript nền tảng",
+      "theory": "Học biến, function, async/await, Promise, Uint8Array, đối tượng JSON và bigint/BN. RPC dùng dữ liệu nhị phân và số lớn nên tránh Number thiếu chính xác.",
+      "evm": "Solidity là logic on-chain; TypeScript vận hành client.",
+      "task": "Viết async function giả lập gọi RPC và xử lý timeout.",
+      "q": "Có nên tùy tiện dùng Number cho mọi giá trị u64?",
+      "a": "Không, lựa chọn bigint/BN theo SDK.",
+      "code": ""
+    },
+    {
+      "id": "00.05",
+      "group": "zero",
+      "title": "Terminal, Git và môi trường",
+      "theory": "Biết cd, ls, git status, git add, git commit, .gitignore; ghi lại phiên bản SDK/compiler để tái hiện lỗi.",
+      "evm": "solc trên EVM không tương đương compile --target solana.",
+      "task": "Tạo repository thử nghiệm và loại bỏ secret khỏi commit.",
+      "q": "Không ghi version thì lỗi build có dễ tái lập?",
+      "a": "Không, môi trường cần được cố định.",
+      "code": ""
+    },
+    {
+      "id": "00.06",
+      "group": "zero",
+      "title": "Bảo mật đầu tiên",
+      "theory": "Liệt kê tài sản, ranh giới tin cậy, kẻ tấn công: ví bị chiếm, malicious program, account giả, quyền nâng cấp bị lộ.",
+      "evm": "Bảo mật Solana cần nhìn signer, owner, writable và CPI bên cạnh logic ứng dụng.",
+      "task": "Viết threat model 5 dòng cho một dApp ghi vị trí.",
+      "q": "Simulation đủ để bảo đảm dApp an toàn?",
+      "a": "Không, cần test và audit.",
+      "code": ""
+    },
+    {
+      "id": "01.01",
+      "group": "solidity",
+      "title": "Cấu trúc Solidity",
+      "theory": "pragma, contract, state, constructor, function. Bắt đầu bằng Flipper có bool, flip(), get(). Trên Solana trạng thái không ở account chứa executable.",
+      "evm": "Cú pháp Solidity dùng được một phần, nhưng target Solana không có toàn bộ EVM builtins.",
+      "task": "Viết Flipper.sol; compile và ghi số byte data account compiler báo.",
+      "q": "view có được thay đổi state?",
+      "a": "Không.",
+      "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.19;\ncontract Flipper {\n    bool private value;\n    constructor(bool initialValue) { value = initialValue; }\n    function flip() public { value = !value; }\n    function get() public view returns (bool) { return value; }\n}"
+    },
+    {
+      "id": "01.02",
+      "group": "solidity",
+      "title": "Kiểu dữ liệu và số học",
+      "theory": "Nắm bool, uint, int, bytes, string, address, struct. Ưu tiên uint64 cho dữ liệu nằm trong phạm vi 64-bit; uint256 có thể tiêu thụ thêm CU.",
+      "evm": "Solana address 32 byte, literal có dạng address\"Base58...\".",
+      "task": "Thiết kế struct cho hồ sơ đo đạc có id, version, mm, timestamp.",
+      "q": "uint256 luôn tối ưu trên SVM?",
+      "a": "Không, thường 64-bit hiệu quả hơn.",
+      "code": ""
+    },
+    {
+      "id": "01.03",
+      "group": "solidity",
+      "title": "Hàm và visibility",
+      "theory": "Phân biệt public, external, internal, private, view và pure. Biên giới external đặc biệt quan trọng vì client cung cấp account metas.",
+      "evm": "Revert message và exception trên target Solana khác EVM.",
+      "task": "Viết hàm tăng biến đếm với điều kiện biên.",
+      "q": "Có thể tin lỗi revert message hiển thị như ethers EVM?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "01.04",
+      "group": "solidity",
+      "title": "State, storage và layout",
+      "theory": "Biến trạng thái được serialize trong tài khoản dữ liệu. Việc nâng cấp chương trình phải bảo đảm cấu trúc cũ tương thích hoặc migration rõ ràng.",
+      "evm": "EVM gộp code/storage ở contract account; Solana tách program và data account.",
+      "task": "Vẽ schema data V1 rồi bổ sung field V2, mô tả migration.",
+      "q": "Upgrade code tự nâng cấp mọi record cũ?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "01.05",
+      "group": "solidity",
+      "title": "Event, log và kiểm tra state",
+      "theory": "Log hỗ trợ quan sát, không thay thế đọc lại trạng thái. Luôn liên kết event với signature và confirmed transaction.",
+      "evm": "Không giả định indexer đọc log y hệt EVM ABI.",
+      "task": "Mô tả log cập nhật hồ sơ và quy trình verify.",
+      "q": "Chỉ log thành công là bằng chứng duy nhất của ghi state?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "01.06",
+      "group": "solidity",
+      "title": "Viết và kiểm thử Flipper",
+      "theory": "Tạo getter và toggle, thử sai/thành công trên validator. Thêm điều kiện kiểm soát khi mở rộng.",
+      "evm": "Kiểm soát owner EVM bằng msg.sender không port nguyên trạng.",
+      "task": "Viết 3 testcase: initial, flip một lần, flip hai lần.",
+      "q": "Có thể gọi msg.sender trên Solang Solana?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "02.01",
+      "group": "svm",
+      "title": "Program account và data account",
+      "theory": "Program chứa SBF executable; data account giữ storage và được program sở hữu. Nhiều data account có thể dùng cùng program.",
+      "evm": "Khác contract address gộp code và storage ở Ethereum.",
+      "task": "Vẽ program A và hai account dữ liệu A1/A2.",
+      "q": "Program và data account là một?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "02.02",
+      "group": "svm",
+      "title": "Signer, owner và writable",
+      "theory": "Signer là tài khoản ký; owner là program có quyền với dữ liệu; writable quyết định quyền ghi của một instruction. Cần kiểm tra quan hệ giữa các account.",
+      "evm": "Không thể dùng một AccountMeta bất kỳ để thay thế msg.sender.",
+      "task": "Thiết kế negative tests cho signer giả và owner sai.",
+      "q": "Một signer bất kỳ có thể thành admin chỉ vì có chữ ký?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "02.03",
+      "group": "svm",
+      "title": "Authority thay msg.sender",
+      "theory": "Dùng @signer(admin), sau đó assert admin.key == authority lưu trong state. Chữ ký và danh tính cho phép là hai điều kiện khác nhau.",
+      "evm": "Thay require(msg.sender==owner) bằng signer + so khớp pubkey.",
+      "task": "Đọc examples/AuthorityCounter.sol, tìm điều kiện auth.",
+      "q": "Chỉ cần @signer là đủ kiểm soát administrator?",
+      "a": "Không.",
+      "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.19;\nimport \"solana\";\ncontract AuthorityCounter {\n    address authority;\n    uint64 counter;\n    constructor(address initialAuthority) { authority = initialAuthority; }\n    @signer(admin)\n    function increment() external {\n        assert(tx.accounts.admin.is_signer);\n        assert(tx.accounts.admin.key == authority);\n        counter += 1;\n    }\n    function get() public view returns (uint64) { return counter; }\n}"
+    },
+    {
+      "id": "02.04",
+      "group": "svm",
+      "title": "Account annotations và IDL",
+      "theory": "@account đọc, @mutableAccount ghi, @signer ký, @mutableSigner ký+ghi, @payer dùng trong constructor. Client phải theo đúng IDL account order.",
+      "evm": "Không có transaction parameters kiểu ABI EVM độc lập với account list.",
+      "task": "Ghi thứ tự và flag cho mỗi account trong IDL sau compile.",
+      "q": "Có thể đảo account metas tùy ý?",
+      "a": "Không.",
+      "code": "import \"solana\";\ncontract AccountLab {\n    @account(readMe)\n    @signer(authority)\n    @mutableAccount(output)\n    function inspect() external view returns (address) {\n        assert(tx.accounts.authority.is_signer);\n        return tx.accounts.readMe.key;\n    }\n}"
+    },
+    {
+      "id": "02.05",
+      "group": "svm",
+      "title": "PDA, seed và bump",
+      "theory": "PDA suy ra từ seeds + program ID và không có private key thường. Chọn seed theo namespace, owner/id và version; validate derivation.",
+      "evm": "CREATE2 và PDA đều deterministic nhưng hoạt động khác.",
+      "task": "Thiết kế seeds cho record theo owner + recordId.",
+      "q": "PDA được ký như keypair ví thông thường?",
+      "a": "Không, runtime xử lý thông qua invoke_signed/CPI thích hợp.",
+      "code": ""
+    },
+    {
+      "id": "02.06",
+      "group": "svm",
+      "title": "Cross-Program Invocation (CPI)",
+      "theory": "Gọi chương trình khác cần AccountMeta đúng flags và đúng thứ tự. Runtime kiểm tra privilege escalation; luôn đối chiếu program ID được tin cậy.",
+      "evm": "External call Solidity EVM không đòi client cung cấp danh sách account tương tự.",
+      "task": "Vẽ CPI sang SPL Token Program gồm mint, account và authority.",
+      "q": "CPI có thể nâng read-only thành writable tùy thích?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "03.01",
+      "group": "toolchain",
+      "title": "Cài đặt Solang CLI",
+      "theory": "Lấy binary chính thức hoặc Docker, ghi phiên bản đã dùng. Kiểm tra solang --version, solang compile --help và extension editor.",
+      "evm": "Không nhầm solc/Foundry EVM với Solang compiler.",
+      "task": "Cài trên máy hoặc container và chụp output --version.",
+      "q": "Cài solc là đã có compiler SBF?",
+      "a": "Không.",
+      "code": "solang --version\nsolang compile --help\nsolana --version"
+    },
+    {
+      "id": "03.02",
+      "group": "toolchain",
+      "title": "Solang, LLVM, SBF và IDL",
+      "theory": "Lệnh solang compile --target solana -v -o build examples/Flipper.sol. Compiler sinh executable SBF .so và metadata Anchor-compatible IDL JSON. Đọc file được sinh thực tế.",
+      "evm": "EVM bytecode + ABI không bằng SBF + IDL.",
+      "task": "So sánh tên instruction, tài khoản, metadata trong IDL.",
+      "q": "IDL chứa private key?",
+      "a": "Không.",
+      "code": "mkdir -p build\nsolang compile --target solana -v -o build examples/Flipper.sol\n# Đọc .so và .json do compiler sinh ra; không đoán IDL."
+    },
+    {
+      "id": "03.03",
+      "group": "toolchain",
+      "title": "Local validator và Devnet",
+      "theory": "solana-test-validator dùng test địa phương; solana config set --url localhost hoặc devnet quyết định cluster. Không dùng tiền thật và địa chỉ ví mainnet.",
+      "evm": "RPC nhầm cluster là lỗi vận hành phổ biến.",
+      "task": "Ghi solana config get, balance và logs của validator.",
+      "q": "Giao dịch Devnet tiêu dùng SOL thật?",
+      "a": "Không, Devnet là mạng thử nghiệm.",
+      "code": "solana-test-validator\n# Mở terminal khác:\nsolana config set --url localhost\nsolana config get"
+    },
+    {
+      "id": "03.04",
+      "group": "toolchain",
+      "title": "Deploy và quyền nâng cấp",
+      "theory": "solana program deploy build/<contract>.so đăng ký program; quản lý program ID và upgrade authority. Không thu hồi quyền nâng cấp trước khi hiểu hậu quả.",
+      "evm": "Khác các mô hình proxy upgrade EVM.",
+      "task": "Deploy local, lấy program ID và đọc thông tin authority.",
+      "q": "Bỏ upgrade authority rồi có thể luôn sửa binary?",
+      "a": "Không.",
+      "code": "# Chạy sau khi biên dịch và xác nhận đúng cluster:\nsolana program deploy build/Flipper.so\nsolana program show PROGRAM_ID"
+    },
+    {
+      "id": "03.05",
+      "group": "toolchain",
+      "title": "Sáu tầng pipeline thực thi",
+      "theory": "Solidity → Solang LLVM/SBF + IDL → Deploy → client build instruction → SVM validate/run → commit hoặc rollback. Các tầng có logs và lỗi khác nhau.",
+      "evm": "Gas EVM khác Compute Units; ABI EVM khác Borsh/IDL.",
+      "task": "Trace một transaction từ source đến trạng thái cuối cùng.",
+      "q": "Gửi RPC trả về signature đã đủ xác nhận?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "03.06",
+      "group": "toolchain",
+      "title": "Debug: build, deploy, runtime",
+      "theory": "Kiểm tra diagnostic compiler; RPC và fee khi deploy; signer, writable, owner, account order, program ID và CU khi runtime. Tạo minimal reproduction.",
+      "evm": "Solidity revert strings không nhất thiết xuất hiện giống EVM.",
+      "task": "Chẩn đoán MissingSignature và InvalidAccountData theo checklist.",
+      "q": "Tăng CU sẽ sửa MissingSignature?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "04.01",
+      "group": "client",
+      "title": "Client TypeScript và ví",
+      "theory": "Frontend → wallet adapter → RPC → IDL → program. Dùng cluster rõ ràng, không nhúng private key và không hardcode secret.",
+      "evm": "ethers.js ABI thông thường không tự tương tác được với target Solana.",
+      "task": "Vẽ sơ đồ module frontend, RPC và wallet.",
+      "q": "Biết Program ID là encode được mọi hàm?",
+      "a": "Không, cần schema/IDL.",
+      "code": ""
+    },
+    {
+      "id": "04.02",
+      "group": "client",
+      "title": "Borsh và discriminator",
+      "theory": "Dữ liệu instruction thường được mã hóa theo quy ước Anchor-compatible IDL, discriminator thường 8 byte; đối chiếu output compiler/SDK version đang dùng. Không dùng 4-byte Ethereum selector.",
+      "evm": "Keccak EVM ABI selector khác Anchor discriminator.",
+      "task": "Kiểm tra bytes payload tạo từ IDL thực.",
+      "q": "Có thể dùng ethers encodeFunctionData làm instruction Solana?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "04.03",
+      "group": "client",
+      "title": "AccountMeta và quyền trong client",
+      "theory": "AccountMeta gồm pubkey, isSigner, isWritable. Thứ tự phải theo IDL; các account do người dùng cung cấp phải được xác minh ràng buộc.",
+      "evm": "EVM contract storage tự tham chiếu, Solana yêu cầu account list.",
+      "task": "Lập bảng metas từ IDL Flipper hoặc AuthorityCounter.",
+      "q": "isSigner=true tự ký transaction?",
+      "a": "Không.",
+      "code": "// Pseudocode SDK: thay bằng schema thực từ IDL\nconst accountMetas = [\n  { pubkey: dataAccount, isSigner: false, isWritable: true },\n  { pubkey: adminAccount, isSigner: true, isWritable: false }\n];\n// Đây chỉ là mẫu minh họa, KHÔNG phải metas đầy đủ của Flipper!"
+    },
+    {
+      "id": "04.04",
+      "group": "client",
+      "title": "Transaction, simulation và CU",
+      "theory": "Dùng simulation để xem lỗi/log/unitsConsumed, đặt compute budget hợp lý và xác nhận sau gửi. Trạng thái có thể thay đổi giữa simulate và gửi thật.",
+      "evm": "Gas price/limit EVM khác compute unit price/limit.",
+      "task": "Ghi unitsConsumed và so sánh 3 trường hợp input.",
+      "q": "simulate thành công bảo đảm broadcast thành công?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "04.05",
+      "group": "client",
+      "title": "SPL Token và account model",
+      "theory": "SPL Token Program quản lý mint, token account, authority. Không triển khai ERC-20 contract tùy ý rồi nghĩ đó là token chuẩn Solana.",
+      "evm": "ERC-20 bytecode không port trực tiếp sang SPL Token.",
+      "task": "Vẽ flow transfer SPL trên Devnet và role signer.",
+      "q": "Mỗi mint SPL cần triển khai program riêng?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "04.06",
+      "group": "client",
+      "title": "Xây dựng DApp xác thực bản ghi",
+      "theory": "Tách nguồn dữ liệu địa lý, canonicalization, SHA-256, trạng thái trên chain và UI verifier. Transaction chứng minh một hash đã được ghi nhận, không chứng minh GPS gốc là thật.",
+      "evm": "Blockchain chứng minh tính nhất quán sau ghi, không chứng minh sự thật ngoài đời.",
+      "task": "Thiết kế form GeoJSON hash + verify state và transaction.",
+      "q": "Hash on-chain tự chứng minh tọa độ là đúng?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "05.01",
+      "group": "expert",
+      "title": "Account substitution và kiểm tra quyền",
+      "theory": "Threat model gồm account giả, wrong owner, wrong PDA, wrong mint, signer không phải authority. Kiểm tra mỗi bất biến và không chỉ dựa trên annotation.",
+      "evm": "Tư duy truy cập khác EVM vì AccountMeta từ client.",
+      "task": "Viết 6 test với accounts giả hoặc đổi thứ tự.",
+      "q": "@account tự động bảo đảm account owner hợp lệ?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "05.02",
+      "group": "expert",
+      "title": "CPI, program ID và trust boundary",
+      "theory": "Chỉ gọi program ID đã biết hoặc có cơ chế allowlist; bảo vệ invariants, không tin dữ liệu từ program chưa xác thực. Xem xét reentrancy và lifecycle CPI.",
+      "evm": "Không chỉ áp mẫu reentrancy guard từ EVM.",
+      "task": "Vẽ cây tấn công thay Token Program bằng program độc hại.",
+      "q": "Có thể CPI đến program chưa xác thực?",
+      "a": "Không nên.",
+      "code": ""
+    },
+    {
+      "id": "05.03",
+      "group": "expert",
+      "title": "Unit, integration và property testing",
+      "theory": "Kiểm thử happy path, lỗi auth, overflow, PDA seeds, invalid owner, rollback, migration; fuzz input và nhiều trạng thái, test mỗi invariant.",
+      "evm": "Không có một bộ unit test EVM nào tự bảo đảm target Solana.",
+      "task": "Viết test matrix 10 trường hợp cho AuthorityCounter.",
+      "q": "Một test thành công là đủ lên Mainnet?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "05.04",
+      "group": "expert",
+      "title": "Compute Units và tối ưu dữ liệu",
+      "theory": "Đo bằng simulation và so sánh cùng workload; uint64 thường hiệu quả hơn uint256 khi đủ range; tối ưu vòng lặp, serialization và account space.",
+      "evm": "Không quy đổi gas thành CU bằng hằng số.",
+      "task": "Benchmark 3 phương án và ghi unit consumption.",
+      "q": "-O aggressive luôn giảm CU mọi trường hợp?",
+      "a": "Không, cần benchmark.",
+      "code": ""
+    },
+    {
+      "id": "05.05",
+      "group": "expert",
+      "title": "Upgrade authority và quy trình vận hành",
+      "theory": "Bảo vệ quyền upgrade bằng cơ chế phê duyệt; ghi binary hash, IDL, checklist rollout, migration và kế hoạch xử lý sự cố. Không xóa authority bốc đồng.",
+      "evm": "Proxy EVM khác nâng cấp program trên Solana.",
+      "task": "Tạo checklist release và rollback/migration.",
+      "q": "Binary mới tự sửa storage layout cũ?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "05.06",
+      "group": "expert",
+      "title": "Capstone GeoPIN GIS on-chain",
+      "theory": "Xây MVP chứng thực hash GeoJSON trên Devnet, ký bằng ví thử, verify transaction và state, mô hình versioning, audit trail và quản lý quyền. Bảo vệ dữ liệu vị trí nhạy cảm.",
+      "evm": "Hash và chữ ký bảo đảm phát hiện sửa đổi trong điều kiện phù hợp, không phải chứng cứ pháp lý tuyệt đối.",
+      "task": "Nộp thiết kế, test matrix, MVP WebGIS, benchmark và báo cáo bảo mật.",
+      "q": "On-chain hash đủ chứng minh số đo ban đầu trung thực?",
+      "a": "Không.",
+      "code": "{\n  \"recordId\": \"geo-001\",\n  \"version\": 1,\n  \"geometryHash\": \"<SHA-256 sau canonicalization>\",\n  \"ownerPubkey\": \"<Solana pubkey>\",\n  \"sourceProof\": \"<nguồn kiểm chứng>\"\n}\n// JSON bài toán, không phải IDL hay ABI thực."
+    }
+  ]
+}
