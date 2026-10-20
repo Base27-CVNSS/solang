@@ -2,7 +2,7 @@
 
 **Khóa học Solidity → Solang → Solana bằng tiếng Việt, từ số 0 đến nâng cao.**
 
-🌐 [Mở học viện trực tuyến](https://base27-cvnss.github.io/solang/) · [Tài liệu Solang](https://solang.readthedocs.io/en/latest/) · [Solana Docs](https://solana.com/docs)
+🌐 [Mở tệp website học tập](https://github.com/Base27-CVNSS/solang/blob/main/index.html) · [Tài liệu Solang](https://solang.readthedocs.io/en/latest/) · [Solana Docs](https://solana.com/docs)
 
 ## Mục tiêu
 
@@ -30,9 +30,11 @@ Dùng **local validator/Devnet**, ví thử và dữ liệu giả khi thực hà
 
 Xem danh sách **36 bài học tương tác** tại `index.html` và tài liệu chi tiết trong `docs/`; mã minh họa trong `examples/`.
 
+**Tài liệu chuyên sâu:** [8 bước chuyển EVM→SVM](docs/chuyen-doi-solidity-svm-chuyen-sau.md) · [Pipeline sáu giai đoạn](docs/pipeline-sau-giai-doan.md) · [Red-Team checklist](docs/redteam-checklist.md) · [GeoPIN capstone](docs/capstone-geopin.md) · [Cài đặt](docs/setup.md).
+
 ## Chạy website
 
-Chỉ cần mở `index.html` trong trình duyệt (không cần máy chủ hoặc CDN); để dùng GitHub Pages: **Settings → Pages → Deploy from a branch → main / (root)**.
+Chỉ cần tải và mở `index.html` trong trình duyệt (không cần máy chủ hoặc CDN). **GitHub Pages chưa được xác nhận kích hoạt**; để xuất bản dưới tên miền `base27-cvnss.github.io/solang/`, vào **Settings → Pages → Deploy from a branch → main / (root)** rồi kiểm tra URL hoạt động.
 
 ## Compile ví dụ Solang (khi đã cài)
 
