@@ -55,3 +55,10 @@ solang compile --target solana -v -o build examples/Flipper.sol
 - https://github.com/solana-foundation/program-examples
 
 > **Ghi chú:** Quy trình, cú pháp, API, phiên bản Solang/Anchor/Solana SDK có thể thay đổi. Các tài liệu mang tính đào tạo; không phải bảo đảm bảo mật hoặc hướng dẫn triển khai mainnet mà không audit.
+
+
+## 06 — Elite Auditor / mục tiêu Top 500 kỹ sư bảo mật
+
+Đã bổ sung **18 bài chuyên sâu**, đưa tổng giáo trình lên **54 bài / 7 học phần**. Xem [Học phần 06](docs/06-top500-auditor.md), [Playbook audit](docs/06-audit-workflow-playbook.md), [Bất biến kinh tế](docs/06-economic-invariants.md), [EVM vs SVM audit](docs/06-svm-audit-boundaries.md), [Mẫu finding](docs/06-finding-template.md), [Rubric 12 tháng](docs/06-skill-matrix.md) và [Lab Foundry](examples/audit/README.md).
+
+**Lưu ý:** “Top 500” là mục tiêu tự đào tạo, không phải xếp hạng thực chứng. Công cụ EVM không xác nhận trực tiếp binary Solang/SBF; phải test Solana riêng. 10/15/50/20/5 là thời lượng minh họa, không phải định mức chính thức từ Dedaub.

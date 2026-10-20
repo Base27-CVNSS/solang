@@ -47,6 +47,14 @@
       "🛡️",
       "Chuyên gia",
       "Kiểm thử, tối ưu CU, upgrade và GeoPIN capstone"
+    ],
+    [
+      "auditor",
+      "06",
+      "Elite Auditor · Top 500 (mục tiêu)",
+      "🏆",
+      "Chuyên gia Audit",
+      "18 bài: hai tư duy, EVM, DeFi economics, chứng minh lỗi, báo cáo và SVM"
     ]
   ],
   "lessons": [
@@ -445,6 +453,204 @@
       "q": "On-chain hash đủ chứng minh số đo ban đầu trung thực?",
       "a": "Không.",
       "code": "{\n  \"recordId\": \"geo-001\",\n  \"version\": 1,\n  \"geometryHash\": \"<SHA-256 sau canonicalization>\",\n  \"ownerPubkey\": \"<Solana pubkey>\",\n  \"sourceProof\": \"<nguồn kiểm chứng>\"\n}\n// JSON bài toán, không phải IDL hay ABI thực."
+    },
+    {
+      "id": "06.01",
+      "group": "auditor",
+      "title": "Mental Model A: hệ thống phải đúng như thế nào?",
+      "theory": "Đọc đặc tả, code, quyền, tài sản, state và xây mô hình hành vi hợp pháp. Viết invariant bằng lời và test trước khi tìm bug.",
+      "evm": "Auditor phải tìm sai lệch với spec, không chỉ so pattern Solidity.",
+      "task": "Vẽ state machine deposit→borrow→repay→withdraw và viết 5 giả định bắt buộc.",
+      "q": "Vì sao không bắt đầu chỉ bằng chạy scanner?",
+      "a": "Tool không hiểu ý định kinh tế và giả định ngầm.",
+      "code": ""
+    },
+    {
+      "id": "06.02",
+      "group": "auditor",
+      "title": "Mental Model B: tấn công giả định ngầm",
+      "theory": "Chuyển sang vai đối kháng: giả sử oracle sai, actor hành động lệch thứ tự, nguồn giá bị trễ, số dư thay đổi bất ngờ.",
+      "evm": "Type-safe code vẫn có thể thất bại về logic và kinh tế.",
+      "task": "Lập 12 giả định ngầm và phản ví dụ cụ thể tương ứng.",
+      "q": "Kiểu dữ liệu hợp lệ đồng nghĩa nghiệp vụ an toàn?",
+      "a": "Không, cần kiểm chứng điều kiện giá trị và trạng thái.",
+      "code": ""
+    },
+    {
+      "id": "06.03",
+      "group": "auditor",
+      "title": "Peer challenge và tương tác nhiều tầng",
+      "theory": "Hai reviewer giải thích mô hình cho nhau, hoán đổi vai defender/attacker; phân tích lỗi giữa nhiều module và tích hợp ngoài.",
+      "evm": "Bug hệ thống có thể do sự kết hợp hàm không có lỗi cục bộ.",
+      "task": "Làm challenge review oracle+AMM+lending và nộp 10 câu chất vấn.",
+      "q": "Một hàm đúng cục bộ bảo đảm protocol đúng toàn cục?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "06.04",
+      "group": "auditor",
+      "title": "Scope, trust model và threat graph",
+      "theory": "Chốt commit SHA, files, actors, privileges, multisig, governance, oracle, bridges và ranh giới tin cậy; ghi out-of-scope.",
+      "evm": "Không công bố audited toàn bộ khi chỉ review một phần source hoặc binary.",
+      "task": "Tạo scope.md, trust graph và attack-surface matrix.",
+      "q": "Audit một lần có giá trị mãi mãi?",
+      "a": "Không, code và phụ thuộc có thể thay đổi.",
+      "code": ""
+    },
+    {
+      "id": "06.05",
+      "group": "auditor",
+      "title": "EVM internals cấp độ máy ảo",
+      "theory": "Hiểu storage slot, mapping keccak, calldata/memory/storage, CALL, delegatecall, proxy, revert, bytecode và gas.",
+      "evm": "EVM bytecode khác Solang output SBF; cùng source không đồng nghĩa runtime giống.",
+      "task": "Vẽ storage layout của proxy và tìm 3 giả định upgrade.",
+      "q": "delegatecall dùng storage của ai?",
+      "a": "Context lưu trữ của caller.",
+      "code": ""
+    },
+    {
+      "id": "06.06",
+      "group": "auditor",
+      "title": "Slither + static analysis triage",
+      "theory": "Dùng Slither trên môi trường Solidity/EVM thích hợp; phân biệt tín hiệu, false positive, exploitable state và giới hạn detector.",
+      "evm": "Tool EVM không phải chứng nhận binary Solang/SBF.",
+      "task": "Tạo bảng triage 12 warnings có severity, evidence và false positive.",
+      "q": "Mọi warning đều là finding?",
+      "a": "Không, cần điều kiện và kiểm chứng.",
+      "code": ""
+    },
+    {
+      "id": "06.07",
+      "group": "auditor",
+      "title": "Foundry: stateful fuzz và invariant",
+      "theory": "Dùng forge unit/fuzz/invariant test, handler, nhiều actor, chuỗi gọi hàm và replay counterexample; xác định scope invariant đúng.",
+      "evm": "Stateful fuzz trên EVM không tự kiểm chứng privilege/owner của SVM.",
+      "task": "Viết invariant: sau borrow/withdraw được chấp thuận thì account phải đạt giới hạn nợ.",
+      "q": "Happy path có chứng minh an toàn mọi chuỗi gọi?",
+      "a": "Không.",
+      "code": "forge test --match-path test/audit/TrainingLending.t.sol -vv"
+    },
+    {
+      "id": "06.08",
+      "group": "auditor",
+      "title": "Echidna & Medusa campaigns",
+      "theory": "Thiết kế property-based fuzzing, seed, coverage, input generators, state sequences, corpus reduction và reproducible counterexamples.",
+      "evm": "Các fuzzer này tập trung EVM, không trực tiếp chạy program SBF.",
+      "task": "Thiết kế 3 campaign: authority, accounting, oracle/rounding.",
+      "q": "Fuzzer đảm bảo đã khám phá hết mọi trạng thái?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "06.09",
+      "group": "auditor",
+      "title": "Halmos, Certora và formal proofs",
+      "theory": "Formal verification kiểm chứng property dưới assumptions, bounds, model; ghi rõ chứng minh gì và không chứng minh gì.",
+      "evm": "Một proof EVM không mặc nhiên chuyển sang SVM.",
+      "task": "Viết 3 bất biến có precondition rồi liệt kê assumptions, trạng thái chưa bao phủ.",
+      "q": "Prover PASS nghĩa là protocol vô điều kiện an toàn?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "06.10",
+      "group": "auditor",
+      "title": "Kế toán kinh tế: assets, liabilities, flows",
+      "theory": "Lập value-flow graph, net assets, obligations, LP shares, fee, bad debt, custody và đơn vị tài sản; tránh đồng nhất TVL với solvency.",
+      "evm": "Sai logic accounting nguy hiểm dù không có reentrancy.",
+      "task": "Tạo sổ cái giả 4 tác nhân qua 5 giao dịch và đối chiếu tài sản/nợ.",
+      "q": "TVL cao có đủ để kết luận protocol solvent?",
+      "a": "Không.",
+      "code": "// Mô hình khái niệm: assets_after = assets_before + inflows - outflows + earnings - losses - fees\n// Chỉ so sánh số cùng đơn vị và đã tính token/rounding."
+    },
+    {
+      "id": "06.11",
+      "group": "auditor",
+      "title": "AMM: reserve, swap, fee, rounding",
+      "theory": "Nắm x*y=k như AMM mẫu, invariant có phí, decimals, LP mint/burn, fee-on-transfer, rebasing, donation và rounding.",
+      "evm": "Không dùng k cố định chính xác cho mọi AMM hoặc mọi thời điểm.",
+      "task": "Kiểm tra 6 tình huống swap và LP dưới rounding bằng test độc lập.",
+      "q": "Có phí thì x*y luôn bằng đúng k ban đầu?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "06.12",
+      "group": "auditor",
+      "title": "Oracle, collateral và liquidation stress",
+      "theory": "Đánh giá stale data, decimals, TWAP, nguồn giá, liquidation discount, bad debt, thị trường cạn thanh khoản. Phân biệt healthy khi thao tác với giá biến động sau đó.",
+      "evm": "Một khoản vay có thể trở nên undercollateralized khi thị trường giảm giá.",
+      "task": "Mô phỏng price shock 20/50%, nguồn giá 0/stale và khả năng liquidate.",
+      "q": "Tất cả borrower luôn healthy ngay cả sau cú sốc giá?",
+      "a": "Không.",
+      "code": "// Mô hình toy: debt <= collateral * liquidationThreshold\n// Health được check theo đúng state transition trong spec."
+    },
+    {
+      "id": "06.13",
+      "group": "auditor",
+      "title": "MEV, transaction ordering, flash liquidity",
+      "theory": "Mô hình sandwich, backrun, flash loans ở mức rủi ro phòng thủ; tính giá trị sau phí, trượt giá, vốn và execution risk.",
+      "evm": "EVM ordering và Solana scheduling không được coi giống hệt nhau.",
+      "task": "Mô phỏng toy AMM với 3 thứ tự giao dịch và xác định slippage protection.",
+      "q": "Flash loan cho vay vô hạn và miễn hoàn trả?",
+      "a": "Không; phải hoàn trả theo điều kiện ngay trong giao dịch.",
+      "code": ""
+    },
+    {
+      "id": "06.14",
+      "group": "auditor",
+      "title": "Tokenomics, game theory và incentives",
+      "theory": "Mô hình payoff actor: LP, trader, admin, keeper, liquidator; tìm reward farming, self-trading, sai lệch incentives và governance capture.",
+      "evm": "Code phát thưởng đúng chưa chắc khuyến khích hành vi tốt.",
+      "task": "Viết payoff matrix, tìm một cơ chế khuyến khích ngược và 2 phương án chỉnh.",
+      "q": "Một protocol không lỗi code có thể gặp exploit kinh tế?",
+      "a": "Có.",
+      "code": ""
+    },
+    {
+      "id": "06.15",
+      "group": "auditor",
+      "title": "Composability, bridge và emergent failures",
+      "theory": "Phân tích graph qua AMM-lending-oracle-bridge, token đặc biệt, callback, reorg/finality, dependency và trạng thái đa giao thức.",
+      "evm": "CPI và EVM CALL cần threat model theo từng runtime.",
+      "task": "Vẽ chuỗi tin cậy qua 4 thành phần, chỉ ra assumption ở mỗi ranh giới.",
+      "q": "Audit một contract bảo đảm mọi tích hợp an toàn?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "06.16",
+      "group": "auditor",
+      "title": "Solang/SVM Security: account-centric audit",
+      "theory": "Kiểm signer=authority, owner, writable, PDA seeds, program ID CPI, mint, IDL account ordering, CU, storage migration, upgrade authority.",
+      "evm": "Foundry/Slither/Echidna/Halmos/Certora nhắm EVM không tự kiểm định Solang SBF.",
+      "task": "Viết bảng 12 negative tests hoán đổi account/authority và coverage EVM vs SVM.",
+      "q": "Fuzz bản Solidity EVM chứng minh SBF trên Solana không lỗi?",
+      "a": "Không.",
+      "code": ""
+    },
+    {
+      "id": "06.17",
+      "group": "auditor",
+      "title": "PoC có phép, báo cáo finding và fix review",
+      "theory": "Chạy toy/fork được phép, giữ initial state và logs, tìm root cause, impact thực tế, severity, patch, regression, residual risk.",
+      "evm": "Đừng nhầm severity dự báo với bằng chứng thiệt hại thực.",
+      "task": "Viết finding với precondition, step test trên sandbox, patch diff và re-test.",
+      "q": "Có cần tấn công mainnet trái phép để chứng minh bug?",
+      "a": "Không.",
+      "code": "// Finding = precondition + violated invariant + controlled repro + impact + patch + retest"
+    },
+    {
+      "id": "06.18",
+      "group": "auditor",
+      "title": "Capstone: audit Lending Toy và peer review",
+      "theory": "Làm quy trình 5 pha; lập mental model, threat model, economic invariant, reproducible Foundry test, fix regression, báo cáo và reviewer độc lập.",
+      "evm": "Top 500 là mục tiêu phấn đấu, không là bảng xếp hạng chính thức hay chứng chỉ.",
+      "task": "Chạy test/audit/TrainingLending.t.sol, báo cáo 2 trang và được phản biện chéo.",
+      "q": "Một lab chứng minh bạn đã thuộc top 500 thế giới?",
+      "a": "Không, cần năng lực dài hạn với bằng chứng công khai.",
+      "code": "forge test --match-path test/audit/TrainingLending.t.sol -vv"
     }
   ]
 }
