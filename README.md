@@ -1,6 +1,6 @@
 # Solang Academy Việt Nam 🇻🇳
 
-**Khóa học Solidity → Solang → Solana bằng tiếng Việt, từ số 0 đến nâng cao.**
+**54 bài, 7 học phần tiếng Việt: Solidity → Solang → Solana → Smart Contract Economic Security & Elite Audit.**
 
 🌐 [Mở tệp website học tập](https://github.com/Base27-CVNSS/solang/blob/main/index.html) · [Tài liệu Solang](https://solang.readthedocs.io/en/latest/) · [Solana Docs](https://solana.com/docs)
 
@@ -27,8 +27,9 @@ Dùng **local validator/Devnet**, ví thử và dữ liệu giả khi thực hà
 | Công cụ | 03 — Solang pipeline | Compiler, LLVM/SBF, IDL, validator, deploy, log |
 | Ứng dụng | 04 — Fullstack | Client TypeScript, AccountMeta, Borsh, SPL, UI |
 | Nâng cao | 05 — Security & Architecture | Kiểm tra tài khoản, mô hình đe dọa, fuzz, tối ưu CU, nâng cấp, dự án cuối khóa |
+| Elite Audit | 06 — Top 500 (mục tiêu phấn đấu) | 18 bài: EVM internals, two adversarial mindsets, economic modeling, fuzz, formal, PoC và report |
 
-Xem danh sách **36 bài học tương tác** tại `index.html` và tài liệu chi tiết trong `docs/`; mã minh họa trong `examples/`.
+Xem danh sách **54 bài học tương tác** tại `index.html` và tài liệu chi tiết trong `docs/`; mã minh họa trong `examples/`.
 
 **Tài liệu chuyên sâu:** [8 bước chuyển EVM→SVM](docs/chuyen-doi-solidity-svm-chuyen-sau.md) · [Pipeline sáu giai đoạn](docs/pipeline-sau-giai-doan.md) · [Red-Team checklist](docs/redteam-checklist.md) · [GeoPIN capstone](docs/capstone-geopin.md) · [Cài đặt](docs/setup.md).
 
