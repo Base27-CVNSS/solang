@@ -63,3 +63,10 @@ solang compile --target solana -v -o build examples/Flipper.sol
 Đã bổ sung **18 bài chuyên sâu**, đưa tổng giáo trình lên **54 bài / 7 học phần**. Xem [Học phần 06](docs/06-top500-auditor.md), [Playbook audit](docs/06-audit-workflow-playbook.md), [Bất biến kinh tế](docs/06-economic-invariants.md), [EVM vs SVM audit](docs/06-svm-audit-boundaries.md), [Mẫu finding](docs/06-finding-template.md), [Rubric 12 tháng](docs/06-skill-matrix.md) và [Lab Foundry](examples/audit/README.md).
 
 **Lưu ý:** “Top 500” là mục tiêu tự đào tạo, không phải xếp hạng thực chứng. Công cụ EVM không xác nhận trực tiếp binary Solang/SBF; phải test Solana riêng. 10/15/50/20/5 là thời lượng minh họa, không phải định mức chính thức từ Dedaub.
+
+
+## 👥 100 gương điển hình Smart Contract Audit
+
+Đã xây dựng [thư viện 100 hồ sơ tương tác](auditors.html) có tìm kiếm, lọc theo thi đấu/whitehat/công ty/nghiên cứu, bài học rút ra, link đối chiếu và đánh dấu đã học. [Dữ liệu JSON](auditors.json) · [Hướng dẫn đọc, phương pháp đối chiếu và nguồn](docs/07-auditor-role-models.md).
+
+**Quan trọng:** Đây là 100 hồ sơ tham khảo được biên tập, không phải danh sách "100 người giỏi nhất thế giới". Có những mục gốc trùng người/tên tổ chức/nhóm đã được thay bằng hồ sơ riêng. Các khoản thu nhập/chức danh/thứ hạng chỉ xuất hiện ở phần trích tài liệu gốc **chưa kiểm chứng**, không được khẳng định là sự thật cập nhật. Các link ngoài chỉ xác minh những handle cụ thể trên danh sách nguồn sơ cấp.

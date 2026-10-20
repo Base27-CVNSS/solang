@@ -328,6 +328,10 @@ Không, cần năng lực dài hạn với bằng chứng công khai.
 
 ---
 
+## Gương điển hình để học hỏi
+
+Danh sách [100 hồ sơ tham khảo](../auditors.html) giúp học cách đọc public findings, đối chiếu người nghiên cứu và luyện kỹ năng qua bài tập. **Mã EX không phải thứ hạng toàn cầu**. Mỗi hồ sơ có xác định nguồn, chủ đề và việc nên tự thực hành. Xem thêm [hướng dẫn đối chiếu](07-auditor-role-models.md).
+
 ## Chuyên đề và đồ án
 
 - [Playbook hai tư duy, 5 giai đoạn](06-audit-workflow-playbook.md)
