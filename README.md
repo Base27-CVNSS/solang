@@ -1,6 +1,6 @@
 # Solang Academy Việt Nam 🇻🇳
 
-**54 bài, 7 học phần tiếng Việt: Solidity → Solang → Solana → Smart Contract Economic Security & Elite Audit.**
+**64 bài, 8 học phần tiếng Việt: Solidity → Solang → Solana → Smart Contract Economic Security & Elite Audit.**
 
 🌐 [Mở tệp website học tập](https://github.com/Base27-CVNSS/solang/blob/main/index.html) · [Tài liệu Solang](https://solang.readthedocs.io/en/latest/) · [Solana Docs](https://solana.com/docs)
 
@@ -28,8 +28,9 @@ Dùng **local validator/Devnet**, ví thử và dữ liệu giả khi thực hà
 | Ứng dụng | 04 — Fullstack | Client TypeScript, AccountMeta, Borsh, SPL, UI |
 | Nâng cao | 05 — Security & Architecture | Kiểm tra tài khoản, mô hình đe dọa, fuzz, tối ưu CU, nâng cấp, dự án cuối khóa |
 | Elite Audit | 06 — Top 500 (mục tiêu phấn đấu) | 18 bài: EVM internals, two adversarial mindsets, economic modeling, fuzz, formal, PoC và report |
+| Blockchain Mathematics | 07 — Phương trình Blockchain | 10 bài: 7 định lý gốc + 2 định lý mở rộng, ma trận A, validation, nghịch đảo, mô phỏng |
 
-Xem danh sách **54 bài học tương tác** tại `index.html` và tài liệu chi tiết trong `docs/`; mã minh họa trong `examples/`.
+Xem danh sách **64 bài học tương tác** tại `index.html` và tài liệu chi tiết trong `docs/`; mã minh họa trong `examples/`.
 
 **Tài liệu chuyên sâu:** [8 bước chuyển EVM→SVM](docs/chuyen-doi-solidity-svm-chuyen-sau.md) · [Pipeline sáu giai đoạn](docs/pipeline-sau-giai-doan.md) · [Red-Team checklist](docs/redteam-checklist.md) · [GeoPIN capstone](docs/capstone-geopin.md) · [Cài đặt](docs/setup.md).
 
@@ -70,3 +71,8 @@ solang compile --target solana -v -o build examples/Flipper.sol
 Đã xây dựng [thư viện 100 hồ sơ tương tác](auditors.html) có tìm kiếm, lọc theo thi đấu/whitehat/công ty/nghiên cứu, bài học rút ra, link đối chiếu và đánh dấu đã học. [Dữ liệu JSON](auditors.json) · [Hướng dẫn đọc, phương pháp đối chiếu và nguồn](docs/07-auditor-role-models.md).
 
 **Quan trọng:** Đây là 100 hồ sơ tham khảo được biên tập, không phải danh sách "100 người giỏi nhất thế giới". Có những mục gốc trùng người/tên tổ chức/nhóm đã được thay bằng hồ sơ riêng. Các khoản thu nhập/chức danh/thứ hạng chỉ xuất hiện ở phần trích tài liệu gốc **chưa kiểm chứng**, không được khẳng định là sự thật cập nhật. Các link ngoài chỉ xác minh những handle cụ thể trên danh sách nguồn sơ cấp.
+
+
+## ∑ Phương trình Blockchain — chuyên đề toán học
+
+Đã bổ sung [giao diện tương tác phương trình](equation.html), [chứng minh 9 định lý](docs/07-blockchain-equation-proofs.md), [kịch bản phản biện/kiểm thử](docs/07-blockchain-equation-validation.md), [mã Python](examples/blockchain_equation.py) và [regression/property tests](tests/test_blockchain_equation.py). Đây là **mô hình giả định có tính nhất quán toán học, không phải định luật blockchain phổ quát đã xác nhận**. Ví dụ Bitcoin và Ethereum sử dụng **dữ liệu giả định**, không phải số đo chain thực. Lưu ý sửa sai số học ví dụ Ethereum thành T=0.95.

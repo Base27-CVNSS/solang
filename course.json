@@ -55,6 +55,14 @@
       "🏆",
       "Chuyên gia Audit",
       "18 bài: hai tư duy, EVM, DeFi economics, chứng minh lỗi, báo cáo và SVM"
+    ],
+    [
+      "equation",
+      "07",
+      "Phương trình Blockchain",
+      "∑",
+      "Toán học",
+      "10 bài: ma trận, 9 định lý, nghịch đảo, mô phỏng, nghiên cứu và phản biện"
     ]
   ],
   "lessons": [
@@ -651,6 +659,116 @@
       "q": "Một lab chứng minh bạn đã thuộc top 500 thế giới?",
       "a": "Không, cần năng lực dài hạn với bằng chứng công khai.",
       "code": "forge test --match-path test/audit/TrainingLending.t.sol -vv"
+    },
+    {
+      "id": "07.01",
+      "group": "equation",
+      "title": "Ký hiệu và định nghĩa cơ chế",
+      "theory": "Chuẩn hóa M=(P,C,Delta,L), O=(I,V,R,T), miền [0,1]^4, ma trận A cố định. Phân biệt giá trị giả định với chỉ số đo.",
+      "evm": "Không nhầm mô hình blockchain với phương trình consensus runtime của Ethereum/Solana; đây là phép ánh xạ các chỉ số do người nghiên cứu chọn.",
+      "task": "Đối chiếu mỗi hàng A với một phương trình thành phần; ghi lại giả định kinh tế/kiến trúc cần đo.",
+      "q": "Ma trận A có được suy ra trực tiếp từ lịch sử block của Bitcoin?",
+      "a": "Không; A là lựa chọn mô hình và cần kiểm định thực nghiệm.",
+      "code": ""
+    },
+    {
+      "id": "07.02",
+      "group": "equation",
+      "title": "Toán tử tích lũy thừa và 0^0",
+      "theory": "Định nghĩa [M^B]_j=∏_i M_i^B_ij; đây không phải lũy thừa ma trận theo nghĩa đại số thông thường. Quy ước 0^0=1 chỉ cho exponent bằng 0.",
+      "evm": "Khi một biến cơ chế bằng 0, tính theo tích trực tiếp; không dùng log hay ma trận nhân thông thường.",
+      "task": "Tính O tại M=(0,0.8,0.5,0.3) bằng tay.",
+      "q": "0^0 trong định nghĩa này được quy ước thành bao nhiêu?",
+      "a": "1; do hàm nhân tử với số mũ 0 được định nghĩa hằng 1.",
+      "code": ""
+    },
+    {
+      "id": "07.03",
+      "group": "equation",
+      "title": "Định lý 1–2: xác định, liên tục, đơn điệu",
+      "theory": "Với A cố định không âm, tích các hàm x^a xác định và liên tục trên [0,1], không giảm theo từng M_i nếu giữ các biến khác cố định.",
+      "evm": "Đơn điệu riêng phần không bảo đảm trilemma ngoài đời: thay đổi P có thể đồng thời làm Delta thay đổi.",
+      "task": "Chứng minh ngắn và chạy 1000 phép thử tăng từng tọa độ, so sánh O trước/sau.",
+      "q": "Tăng P ngoài thực tế chắc chắn không làm Delta giảm?",
+      "a": "Không. Định lý chỉ nói về biến độc lập trong mô hình.",
+      "code": ""
+    },
+    {
+      "id": "07.04",
+      "group": "equation",
+      "title": "Định lý 3–4: sụp đổ biên và tính dương",
+      "theory": "Mỗi cột A có ít nhất một số dương. M_i=0 ⇒ có O_j=0; mọi M_i>0 ⇒ mọi O_j>0.",
+      "evm": "Không suy ra một hệ thống tập trung không thể xác minh bằng chữ ký/Merkle proof; đây chỉ là đặc điểm A đã chọn.",
+      "task": "Kiểm thử cả bốn phép gán P,C,Delta,L=0 trên mô phỏng.",
+      "q": "Điều kiện mọi cơ chế dương có bảo đảm an ninh mạng blockchain thật?",
+      "a": "Không, chỉ bảo đảm các đầu ra dương trong mô hình.",
+      "code": ""
+    },
+    {
+      "id": "07.05",
+      "group": "equation",
+      "title": "Định lý 5: dạng tích ↔ log tuyến tính ↔ mũ",
+      "theory": "Với M>0, ln O=A ln M và O=exp(A ln M), theo từng tọa độ. Tại M_i=0, log không xác định và phải dùng dạng tích.",
+      "evm": "Không dùng tuyến tính log để suy ra A là nhân quả hay đã được ước lượng từ dữ liệu.",
+      "task": "Đọc code tính forward, so kết quả trực tiếp với exp(A log M).",
+      "q": "Có thể tính ln M_i khi M_i=0 không?",
+      "a": "Không; phải tính dạng tích trực tiếp.",
+      "code": ""
+    },
+    {
+      "id": "07.06",
+      "group": "equation",
+      "title": "Định lý 6–7: tiêu chí nội sinh và Boolean AND",
+      "theory": "Theo định nghĩa nội sinh “hợp lệ B ⇔ O dương”, M dương tương đương O dương. Khi mọi M là 0/1, full Boolean là AND của bốn cơ chế.",
+      "evm": "Một chain permissioned không bị loại khỏi ngành chỉ bởi ngưỡng do mô hình đề xuất.",
+      "task": "Liệt kê 16 vector Boolean, xác nhận khi M toàn 1 thì O toàn 1.",
+      "q": "Định lý 6 chứng minh tiêu chuẩn định nghĩa blockchain toàn cầu?",
+      "a": "Không, tính hợp lệ ở đây là định nghĩa mô hình.",
+      "code": ""
+    },
+    {
+      "id": "07.07",
+      "group": "equation",
+      "title": "Định lý 8–9: elasticity, nghịch đảo và khả thi",
+      "theory": "Với M>0: ∂ln O_j/∂ln M_i=a_ji. det A=-1, nên P=VT/I², C=V/R, Delta=I²R/(VT), L=T/I. Kiểm tra T≤I, V≤R, VT≤I², I²R≤VT.",
+      "evm": "Nghịch đảo cho phép chẩn đoán số liệu theo mô hình, không đo bản chất chain khi thiếu phương pháp lượng hóa.",
+      "task": "Nhập O=(0.5,0.9,0.3,0.3) để thấy vi phạm V≤R; phục hồi M từ O hợp lệ.",
+      "q": "Đầu ra V=0.9, R=0.3 có thể sinh bởi M trong [0,1]^4?",
+      "a": "Không, vì C=V/R=3 >1.",
+      "code": "P = V*T/(I*I); C = V/R;\nDelta = I*I*R/(V*T); L = T/I;\n// Chỉ với I,V,R,T > 0."
+    },
+    {
+      "id": "07.08",
+      "group": "equation",
+      "title": "Mô phỏng Bitcoin/Ethereum và lỗi số học",
+      "theory": "Giữ các kịch bản trong bản thảo như ví dụ giả định. Ethereum giả định P=.75,C=1,Delta=.95,L=1 cho I=.95,V=.7125,R=.7125,T=.95 (không phải .90).",
+      "evm": "Không gán đây là phép đo Bitcoin hay Ethereum mới nhất nếu không có bằng chứng số liệu và định nghĩa chỉ số.",
+      "task": "Chạy bốn kịch bản, so sánh kết quả, giải thích tác động L².",
+      "q": "T của Ethereum ví dụ có bằng 0.90 không?",
+      "a": "Không: C×Delta×L²=1×.95×1=.95.",
+      "code": ""
+    },
+    {
+      "id": "07.09",
+      "group": "equation",
+      "title": "Phản biện mô hình và validation khoa học",
+      "theory": "A không độc nhất; P,C,Delta,L chưa định nghĩa cách đo, có khả năng trade-off, ngưỡng, tương tác, dữ liệu gốc sai, confirmation probabilistic và governance. Phải đánh giá giả thiết với dữ liệu độc lập.",
+      "evm": "Blockchain audit không được thay bằng điểm số mô hình; các phương trình không kiểm chứng bytecode hay quyền signer.",
+      "task": "Viết 5 phản ví dụ thực nghiệm giả lập và kế hoạch đo, interval, alternative model.",
+      "q": "Tính đúng của định lý toán chứng minh A phù hợp mọi chain?",
+      "a": "Không, phải hiệu chuẩn và kiểm định A riêng.",
+      "code": ""
+    },
+    {
+      "id": "07.10",
+      "group": "equation",
+      "title": "Capstone: phương trình trong GeoChain và Audit",
+      "theory": "Kết hợp mô phỏng phương trình với app GeoPIN: kiểm tra hash/GPS/provenance và an toàn blockchain qua quy trình độc lập. Đánh giá kết quả theo mức bất định, không tự xác nhận pháp lý.",
+      "evm": "Hash on-chain chứng minh dấu vết, không chứng minh sự thật GPS; chương trình Solang cần runtime audit riêng.",
+      "task": "Nộp report 4 phần: định nghĩa chỉ số, 1000 property tests, 3 tình huống, 3 limitations và plan thực nghiệm.",
+      "q": "Blockchain cho điểm I=T=1 có xác nhận hồ sơ đất đai chính xác?",
+      "a": "Không, cần provenance, bên chứng thực và thủ tục pháp lý.",
+      "code": ""
     }
   ]
 }

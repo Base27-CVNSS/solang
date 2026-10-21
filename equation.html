@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Phương trình Blockchain: 9 định lý, ma trận phụ thuộc, minh họa P C Δ L, kiểm tra miền ảnh và phương trình nghịch đảo.">
+<title>∑ Phương trình Blockchain · Solang Academy</title>
+<style>
+:root{color-scheme:dark;--bg:#09111e;--panel:#142035;--panel2:#1b2942;--border:#2b405e;--white:#e9f1fd;--muted:#acc0db;--violet:#bd9bff;--green:#58ebbd;--yellow:#ffd18d;--red:#ff9999}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--green)}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+header{background:linear-gradient(125deg,#2b214a,#0d293f);border-bottom:1px solid var(--border);padding:24px 20px}
+header .inner{max-width:1230px;margin:auto}header h1{font-size:clamp(26px,3.5vw,37px);line-height:1.25;margin:5px 0}header p{color:#cbd9ee;max-width:1040px;margin:5px 0}
+.tag{font-size:12px;letter-spacing:.06em;font-weight:800;color:var(--green)}main{max-width:1270px;padding:20px 16px 80px;margin:auto}
+.card{border:1px solid var(--border);border-radius:15px;background:var(--panel);padding:20px;min-width:0}h2{margin:4px 0 12px;font-size:23px}h3{margin:15px 0 7px;font-size:16px;color:#d7c7ff}p{margin:8px 0}
+.caption{color:var(--muted);font-size:13px}.formula{background:#0c1b30;border:1px solid #3f5271;border-radius:12px;padding:16px;color:#e8fbf7;font:600 clamp(15px,2vw,21px)/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;overflow:auto;text-align:center;white-space:pre-wrap}
+.notice{border-left:4px solid var(--yellow);background:#2d2830;color:#f8e1bd;padding:12px 15px;border-radius:0 10px 10px 0;margin:12px 0}
+.layout{display:grid;grid-template-columns:minmax(275px,430px) minmax(0,1fr);gap:15px;margin-top:16px}
+.inputs{display:flex;flex-direction:column;gap:15px}.sliderline{display:flex;align-items:center;justify-content:space-between;gap:12px}.sliderline strong{color:var(--green)}.sliderbox{padding:11px 14px;border:1px solid var(--border);background:#111c32;border-radius:10px}.sliderbox input[type=range]{width:100%;accent-color:#aa8bff;cursor:pointer}.buttons{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:#223553;border:1px solid #415576;color:var(--white);padding:8px 11px;border-radius:9px}.btn:hover{border-color:var(--violet)}.btn.active{background:#634d95}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.stat{padding:15px;background:#101c2e;border:1px solid var(--border);border-radius:12px}.stat .n{font-size:26px;font-weight:800;color:var(--green)}.stat small{font-size:12px;color:var(--muted);display:block}.bar{height:9px;width:100%;background:#31405a;border-radius:20px;overflow:hidden;margin-top:8px}.bar>span{height:100%;display:block;background:linear-gradient(90deg,#a589ff,#63eac2);border-radius:20px;width:0}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 12px;border:1px solid var(--border);text-align:left;vertical-align:middle}th{color:#e0d1ff;background:#1c2942}
+.scroll{overflow:auto}math{font-size:1.06em}input[type=number]{width:calc(25% - 7px);min-width:63px;border:1px solid #516583;border-radius:8px;background:#0a1628;color:var(--white);padding:9px}.outputrow{display:flex;gap:8px;margin:12px 0}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:12px 0}.grid4 div{background:#111d31;padding:10px 5px;border-radius:10px;text-align:center}.grid4 div b{color:var(--green);display:block}
+footer{border-top:1px solid var(--border);padding-top:21px;margin-top:25px;color:var(--muted);font-size:13px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}}@media(max-width:520px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat .n{font-size:22px}.card{padding:15px}.grid4 div{font-size:12px}}
+</style></head><body>
+<header><div class="inner"><div class="tag">SOLANG ACADEMY · TOÁN HỌC BLOCKCHAIN · GIÁO TRÌNH 07</div><h1>∑ Phương trình Blockchain</h1><p>Mô hình cấu trúc từ 4 cơ chế đến 4 thuộc tính: chứng minh, mô phỏng, độ nhạy, khả nghịch và phản biện tính phù hợp thực nghiệm. Sử dụng ngoại tuyến, không thư viện bên ngoài.</p><p><a href="index.html">← Về học viện</a> · <a href="docs/07-blockchain-equation-proofs.md">9 định lý & chứng minh</a> · <a href="docs/07-blockchain-equation-validation.md">Kiểm thử & giới hạn</a></p></div></header>
+<main>
+<section class="card">
+<div class="formula">B<sub>A</sub>(M) = M<sup>Aᵀ</sup> · O<sub>j</sub> = ∏<sub>i=1..4</sub> M<sub>i</sub><sup>a<sub>ji</sub></sup></div>
+<div class="grid4"><div><b>P</b>Phi tập trung</div><div><b>C</b>Bảo mật mật mã</div><div><b>Δ</b>Hiệu quả đồng thuận</div><div><b>L</b>Sổ cái append-only</div></div>
+<div class="formula">I = C × Δ × L
+V = P × C × Δ
+R = P × Δ
+T = C × Δ × L²</div>
+<p class="caption">A = [[0,1,1,1],[1,1,1,0],[1,0,1,0],[0,1,1,2]]. M là vector cột (P,C,Δ,L); O là (I,V,R,T). Khi M&gt;0: ln O=A ln M. Ký hiệu “M lũy thừa Aᵀ” ở đây là tích lũy thừa theo từng thành phần, không phải phép nâng lũy thừa ma trận chuẩn.</p>
+</section>
+<section class="layout" aria-label="Mô phỏng tương tác">
+<div class="card">
+<h2>1. Thay đổi cơ chế</h2><p class="caption">Kéo từng thanh trượt từ 0 đến 1. Đây là điểm giả lập, không phải giá trị Bitcoin/Ethereum đã đo.</p>
+<div class="inputs">
+<div class="sliderbox"><div class="sliderline"><label for="P">P — Phi tập trung</label><strong id="valP">0.75</strong></div><input id="P" type="range" min="0" max="1" step="0.01" value="0.75"></div>
+<div class="sliderbox"><div class="sliderline"><label for="C">C — Mật mã</label><strong id="valC">1.00</strong></div><input id="C" type="range" min="0" max="1" step="0.01" value="1"></div>
+<div class="sliderbox"><div class="sliderline"><label for="D">Δ — Đồng thuận</label><strong id="valD">0.95</strong></div><input id="D" type="range" min="0" max="1" step="0.01" value="0.95"></div>
+<div class="sliderbox"><div class="sliderline"><label for="L">L — Sổ cái</label><strong id="valL">1.00</strong></div><input id="L" type="range" min="0" max="1" step="0.01" value="1"></div>
+</div><h3>Kịch bản mô phỏng</h3><div class="buttons" id="scenarios">
+<button class="btn" data-case="ideal">Lý tưởng</button><button class="btn" data-case="bitcoin">Bitcoin giả định</button><button class="btn" data-case="ethereum">Ethereum giả định</button><button class="btn" data-case="central">CSDL tập trung</button><button class="btn" data-case="none">Không đồng thuận</button>
+</div><div class="notice" id="status" role="status">Theo mô hình: mọi cơ chế dương.</div>
+</div>
+<div class="card"><h2>2. Thuộc tính suy ra</h2><div class="stats">
+<div class="stat"><small>I — Chống sửa đổi</small><div class="n" id="outI">—</div><div class="bar"><span id="barI"></span></div></div>
+<div class="stat"><small>V — Khả kiểm chứng</small><div class="n" id="outV">—</div><div class="bar"><span id="barV"></span></div></div>
+<div class="stat"><small>R — Chống kiểm duyệt</small><div class="n" id="outR">—</div><div class="bar"><span id="barR"></span></div></div>
+<div class="stat"><small>T — Truy xuất nguồn gốc</small><div class="n" id="outT">—</div><div class="bar"><span id="barT"></span></div></div>
+</div><h3>Ma trận phụ thuộc A</h3><div class="scroll"><table><thead><tr><th>Thuộc tính ↓ · Cơ chế →</th><th>P</th><th>C</th><th>Δ</th><th>L</th></tr></thead><tbody><tr><td>I</td><td>0</td><td>1</td><td>1</td><td>1</td></tr><tr><td>V</td><td>1</td><td>1</td><td>1</td><td>0</td></tr><tr><td>R</td><td>1</td><td>0</td><td>1</td><td>0</td></tr><tr><td>T</td><td>0</td><td>1</td><td>1</td><td><b>2</b></td></tr></tbody></table></div>
+<p class="caption" id="collapse">Khi một cơ chế bằng 0, hệ quả theo A sẽ được liệt kê ở đây.</p>
+</div></section>
+<section class="layout">
+<div class="card"><h2>3. Nghịch đảo — từ O suy ra M</h2><p>Định thức <b>det(A) = −1</b>. Trong miền dương, có nghịch đảo duy nhất trên ảnh của mô hình.</p><div class="formula">P = V×T/I², C = V/R
+Δ = I²×R/(V×T), L = T/I</div>
+<label for="inI" class="caption">Nhập I, V, R, T trong (0,1] và kiểm tra khả thi theo A:</label><div class="outputrow"><input type="number" id="inI" min=".000001" max="1" step=".01" value=".95" aria-label="I"><input type="number" id="inV" min=".000001" max="1" step=".01" value=".7125" aria-label="V"><input type="number" id="inR" min=".000001" max="1" step=".01" value=".7125" aria-label="R"><input type="number" id="inT" min=".000001" max="1" step=".01" value=".95" aria-label="T"></div><button class="btn" id="check">Kiểm tra khả thi & nghịch đảo</button><button class="btn" id="bad">Thử đầu ra không khả thi</button><p class="caption" id="inverseResult" role="status"></p>
+</div>
+<div class="card"><h2>4. Các điều kiện khả thi</h2>
+<p>Với I,V,R,T dương, đầu ra được sinh từ một vector M có từng thành phần không quá 1 khi và chỉ khi:</p>
+<div class="formula">T ≤ I · V ≤ R
+V×T ≤ I² · I²×R ≤ V×T</div>
+<p>Từ đó có thể phản biện mô hình bằng một điểm quan sát không thỏa điều kiện. Nhưng muốn so với dữ liệu thật cần chuẩn hóa được cách đo I, V, R, T.</p><div class="notice">Điều kiện “hợp lệ ⇔ min(P,C,Δ,L)&gt;0” là <strong>định nghĩa nội sinh</strong>, không phải tiêu chuẩn pháp lý/khoa học chứng nhận một chain an toàn. P dương cực nhỏ vẫn đạt ngưỡng dương trong mô hình.</div>
+</div></section>
+<section class="card" style="margin-top:16px"><h2>5. Chứng minh và phản biện</h2><div class="scroll"><table><thead><tr><th>Định lý</th><th>Nội dung</th><th>Điều kiện/giới hạn</th></tr></thead><tbody>
+<tr><td>1 · Xác định</td><td>B<sub>A</sub>:[0,1]⁴→[0,1]⁴, liên tục</td><td>Giữ A cố định, 0⁰=1</td></tr>
+<tr><td>2 · Đơn điệu</td><td>Một M<sub>i</sub> tăng không làm O<sub>j</sub> giảm</td><td>Giữ các M còn lại độc lập</td></tr>
+<tr><td>3 · Biên</td><td>Một cơ chế 0 làm ít nhất một thuộc tính 0</td><td>Mỗi cột A chứa hệ số dương</td></tr>
+<tr><td>4 · Tính dương</td><td>min M &gt; 0 ⇒ min O &gt; 0</td><td>Không bảo đảm an toàn thực tế</td></tr>
+<tr><td>5 · Log/mũ</td><td>ln O = A ln M ↔ O = exp(A ln M)</td><td>Chỉ khi toàn bộ M dương</td></tr>
+<tr><td>6 · Hợp lệ mô hình</td><td>min M &gt; 0 ⇔ min O &gt; 0 ⇔ hợp lệ B</td><td>Vế thứ ba là định nghĩa</td></tr>
+<tr><td>7 · Boolean</td><td>Đầy đủ Boolean là AND bốn cơ chế</td><td>M ∈ {0,1}⁴</td></tr>
+<tr><td>8 · Elasticity</td><td>∂ln O<sub>j</sub>/∂ln M<sub>i</sub>=a<sub>ji</sub></td><td>Không suy ra tác động nhân quả thực tế</td></tr>
+<tr><td>9 · Nghịch đảo</td><td>det A=−1; phục hồi M và miền khả thi</td><td>O dương; gần 0 nhạy sai số</td></tr>
+</tbody></table></div><p class="caption">Dẫn chiếu: <a href="docs/07-blockchain-equation-proofs.md">Bản chứng minh chi tiết</a> và <a href="docs/07-blockchain-equation-validation.md">Bộ property tests cùng giới hạn</a>.</p></section>
+<footer>Solang Academy · mô phỏng học tập offline. Các giá trị thử nghiệm không phải chỉ số Bitcoin, Ethereum hoặc chain bất kỳ ngoài thực tế. <a href="https://www.nist.gov/publications/blockchain-technology-overview" target="_blank" rel="noopener">NIST blockchain overview</a> · <a href="https://ethereum.org/developers/docs/consensus-mechanisms/pos/" target="_blank" rel="noopener">Ethereum PoS & finality</a></footer>
+</main>
+<script>
+"use strict";
+const A=[[0,1,1,1],[1,1,1,0],[1,0,1,0],[0,1,1,2]];
+const refs=["P","C","D","L"], outs=["I","V","R","T"];
+const $=id=>document.getElementById(id);
+const scene={ideal:[1,1,1,1],bitcoin:[.85,1,1,1],ethereum:[.75,1,.95,1],central:[0,.8,.5,.3],none:[.5,1,0,1]};
+let chosen="ethereum";
+function prod(m){return A.map(row=>row.reduce((p,a,i)=>p*Math.pow(m[i],a),1));}
+function fmt(v){return Number(v).toFixed(4);}
+function render(){
+const m=refs.map(id=>Number($(id).value));m.forEach((v,i)=>$("val"+refs[i]).textContent=v.toFixed(2));
+const o=prod(m);o.forEach((v,i)=>{$("out"+outs[i]).textContent=fmt(v);$("bar"+outs[i]).style.width=(Math.min(100,v*100))+"%";});
+const positive=m.every(v=>v>0);
+$("status").textContent=positive?"Mô hình B: tất cả cơ chế dương → tất cả thuộc tính dương. KHÔNG xác nhận blockchain thực tế an toàn.":"Theo tiêu chí mô hình B: ít nhất một cơ chế bằng 0, không thỏa điều kiện tính dương.";
+const failed=outs.filter((x,i)=>o[i]===0);
+$("collapse").textContent=failed.length?"Sụp đổ ở biên theo A: "+failed.join(", ")+". Đây là giả định cấu trúc, không phải hiện tượng thực nghiệm đã chứng minh.":"Tất cả thuộc tính dương. Tăng hay giảm mỗi cơ chế thay đổi kết quả theo công thức với A cố định.";
+document.querySelectorAll("[data-case]").forEach(el=>el.classList.toggle("active",el.dataset.case===chosen));
+}
+refs.forEach(id=>$(id).addEventListener("input",()=>{chosen="";render();}));
+document.querySelectorAll("[data-case]").forEach(el=>el.addEventListener("click",()=>{chosen=el.dataset.case;scene[chosen].forEach((v,i)=>$(refs[i]).value=v);render();}));
+function checkInverse(){
+const o=outs.map(id=>Number($("in"+id).value));const [I,V,R,T]=o;
+if(o.some(x=>!Number.isFinite(x)||x<=0||x>1)){$("inverseResult").textContent="Không hợp lệ: tất cả đầu vào phải thuộc (0,1].";return;}
+const eps=1e-10;
+const conditions=[T<=I+eps,V<=R+eps,V*T<=I*I+eps,I*I*R<=V*T+eps];
+const m=[V*T/(I*I),V/R,I*I*R/(V*T),T/I];
+if(!conditions.every(Boolean)||m.some(x=>x>1+eps||x<=0)){$("inverseResult").textContent="Không thuộc ảnh của mô hình A trong [0,1]⁴. Phát hiện một hoặc nhiều điều kiện bất khả thi. M hình thức: "+m.map(fmt).join(" · ");return;}
+$("inverseResult").textContent="Khả thi theo A. Phục hồi P="+fmt(m[0])+", C="+fmt(m[1])+", Δ="+fmt(m[2])+", L="+fmt(m[3])+". Lưu ý đây không phải đo lường blockchain thực tế.";
+}
+$("check").addEventListener("click",checkInverse);
+$("bad").addEventListener("click",()=>{[.5,.9,.3,.3].forEach((v,i)=>$("in"+outs[i]).value=v);checkInverse();});
+render();checkInverse();
+</script></body></html>
