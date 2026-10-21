@@ -61,7 +61,7 @@ solang compile --target solana -v -o build examples/Flipper.sol
 
 ## 06 — Elite Auditor / mục tiêu Top 500 kỹ sư bảo mật
 
-Đã bổ sung **18 bài chuyên sâu**, đưa tổng giáo trình lên **54 bài / 7 học phần**. Xem [Học phần 06](docs/06-top500-auditor.md), [Playbook audit](docs/06-audit-workflow-playbook.md), [Bất biến kinh tế](docs/06-economic-invariants.md), [EVM vs SVM audit](docs/06-svm-audit-boundaries.md), [Mẫu finding](docs/06-finding-template.md), [Rubric 12 tháng](docs/06-skill-matrix.md) và [Lab Foundry](examples/audit/README.md).
+Học phần 06 đóng góp **18 bài chuyên sâu** trong tổng chương trình hiện có **64 bài / 8 học phần**. Xem [Học phần 06](docs/06-top500-auditor.md), [Playbook audit](docs/06-audit-workflow-playbook.md), [Bất biến kinh tế](docs/06-economic-invariants.md), [EVM vs SVM audit](docs/06-svm-audit-boundaries.md), [Mẫu finding](docs/06-finding-template.md), [Rubric 12 tháng](docs/06-skill-matrix.md) và [Lab Foundry](examples/audit/README.md).
 
 **Lưu ý:** “Top 500” là mục tiêu tự đào tạo, không phải xếp hạng thực chứng. Công cụ EVM không xác nhận trực tiếp binary Solang/SBF; phải test Solana riêng. 10/15/50/20/5 là thời lượng minh họa, không phải định mức chính thức từ Dedaub.
 
@@ -75,4 +75,4 @@ solang compile --target solana -v -o build examples/Flipper.sol
 
 ## ∑ Phương trình Blockchain — chuyên đề toán học
 
-Đã bổ sung [giao diện tương tác phương trình](equation.html), [chứng minh 9 định lý](docs/07-blockchain-equation-proofs.md), [kịch bản phản biện/kiểm thử](docs/07-blockchain-equation-validation.md), [mã Python](examples/blockchain_equation.py) và [regression/property tests](tests/test_blockchain_equation.py). Đây là **mô hình giả định có tính nhất quán toán học, không phải định luật blockchain phổ quát đã xác nhận**. Ví dụ Bitcoin và Ethereum sử dụng **dữ liệu giả định**, không phải số đo chain thực. Lưu ý sửa sai số học ví dụ Ethereum thành T=0.95.
+Đã bổ sung [giao diện tương tác phương trình](equation.html), [chứng minh 9 định lý](docs/07-blockchain-equation-proofs.md), [kịch bản phản biện/kiểm thử](docs/07-blockchain-equation-validation.md), [mã Python](examples/blockchain_equation.py) và [regression/property tests](tests/test_blockchain_equation.py), tự động hóa bằng [GitHub Actions](.github/workflows/blockchain-equation.yml). Đây là **mô hình giả định có tính nhất quán toán học, không phải định luật blockchain phổ quát đã xác nhận**. Ví dụ Bitcoin và Ethereum sử dụng **dữ liệu giả định**, không phải số đo chain thực. Lưu ý sửa sai số học ví dụ Ethereum thành T=0.95.
