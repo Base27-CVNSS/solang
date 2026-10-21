@@ -76,3 +76,13 @@ Học phần 06 đóng góp **18 bài chuyên sâu** trong tổng chương trìn
 ## ∑ Phương trình Blockchain — chuyên đề toán học
 
 Đã bổ sung [giao diện tương tác phương trình](equation.html), [chứng minh 9 định lý](docs/07-blockchain-equation-proofs.md), [kịch bản phản biện/kiểm thử](docs/07-blockchain-equation-validation.md), [mã Python](examples/blockchain_equation.py) và [regression/property tests](tests/test_blockchain_equation.py), tự động hóa bằng [GitHub Actions](.github/workflows/blockchain-equation.yml). Đây là **mô hình giả định có tính nhất quán toán học, không phải định luật blockchain phổ quát đã xác nhận**. Ví dụ Bitcoin và Ethereum sử dụng **dữ liệu giả định**, không phải số đo chain thực. Lưu ý sửa sai số học ví dụ Ethereum thành T=0.95.
+
+
+## 📚 Cẩm nang Dev Blockchain — 500 năng lực / 50 nhóm
+
+Đã bổ sung [Cẩm nang Dev tương tác](dev-handbook.html), giữ thứ tự đầy đủ **DEV-001 → DEV-500** từ danh sách người dùng, với **50 nhóm × 10 hạng mục**; có tìm kiếm, lọc theo 5 lộ trình nghề nghiệp, trình độ, nhóm, trạng thái, tiến độ localStorage và xuất JSON/CSV.
+
+- [Dữ liệu 500 hạng mục JSON](dev-handbook.json)
+- [Hướng dẫn 5 lộ trình, tiêu chí năng lực và portfolio](docs/08-dev-handbook-guide.md)
+
+**Phân biệt:** 500 mục là bản đồ kỹ năng tham khảo, **không phải thêm 500 bài vào khóa Solang 64 bài** và không phải 500 chứng chỉ. Bản UI là biên tập cô đọng theo số thứ tự/tên chủ đề người dùng cung cấp; các lab/tiêu chí là đề xuất học tập, không sao chép đủ toàn văn mô tả từng mục. Tránh dùng khóa ví thật và phải kiểm tra tài liệu kỹ thuật cập nhật trước khi áp dụng production.
