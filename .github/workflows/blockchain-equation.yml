@@ -1,0 +1,36 @@
+name: Blockchain Equation — mathematical properties
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/blockchain_equation.py'
+      - 'tests/test_blockchain_equation.py'
+      - '.github/workflows/blockchain-equation.yml'
+  pull_request:
+    paths:
+      - 'examples/blockchain_equation.py'
+      - 'tests/test_blockchain_equation.py'
+      - '.github/workflows/blockchain-equation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-mathematical-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile Python syntax
+        run: python -m py_compile examples/blockchain_equation.py tests/test_blockchain_equation.py
+      - name: Check tutorial cases and inverse
+        run: python examples/blockchain_equation.py --self-test
+      - name: Run property / regression checks
+        run: python tests/test_blockchain_equation.py
